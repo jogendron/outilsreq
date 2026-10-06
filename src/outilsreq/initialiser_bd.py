@@ -1,46 +1,58 @@
 """
 Module d'initialisation de la base de données REQ
 """
-import os
 from pathlib import Path
-from dotenv import load_dotenv
 import psycopg
+
+from .configuration import charger_configuration_depuis_environnement
 
 def initialiser_bd() -> None:
     """Initialise la base de données selon les paramètres en variables d'environnement"""
-    load_dotenv()
+    configuration = charger_configuration_depuis_environnement()
 
     with psycopg.connect(
-        host=os.getenv("OUTILSREQ_HOTE"),
-        port=os.getenv("OUTILSREQ_PORT"),
-        dbname=os.getenv("OUTILSREQ_BD_POSTGRES"),
-        user=os.getenv("OUTILSREQ_UTILISATEUR_POSTGRES"),
-        password=os.getenv("OUTILSREQ_MOT_PASSE_POSTGRES"),
+        host=configuration.bd.hote,
+        port=configuration.bd.port,
+        dbname=configuration.bd.nom_bd_postgres,
+        user=configuration.bd.utilisateurs.postgres.nom,
+        password=configuration.bd.utilisateurs.postgres.mot_passe,
         autocommit=True
     ) as conn:
         with conn.cursor() as cur:
             cur.execute(
                 psycopg.sql.SQL(
-                    "create user req_adm with password {}"
-                ).format(psycopg.sql.Literal(os.getenv("OUTILSREQ_MOT_PASSE_REQADM")))
+                    "create user {} with password {}"
+                ).format(
+                    psycopg.sql.Identifier(configuration.bd.utilisateurs.admin_req.nom),
+                    psycopg.sql.Literal(configuration.bd.utilisateurs.admin_req.mot_passe)
+                )
             )
 
             cur.execute(
                 psycopg.sql.SQL(
-                    "create user req_usr with password {}"
-                ).format(psycopg.sql.Literal(os.getenv("OUTILSREQ_MOT_PASSE_REQUSR")))
+                    "create user {} with password {}"
+                ).format(
+                    psycopg.sql.Identifier(configuration.bd.utilisateurs.standard_req.nom),
+                    psycopg.sql.Literal(configuration.bd.utilisateurs.standard_req.mot_passe)
+                )
             )
 
-            cur.execute("create database req")
+            cur.execute(
+                psycopg.sql.SQL(
+                    "create database {}"
+                ).format(
+                    psycopg.sql.Identifier(configuration.bd.nom_bd_req)
+                )
+            )
 
     script = Path("sql/creer_bd.sql").read_text(encoding="utf-8")
 
     with psycopg.connect(
-        host=os.getenv("OUTILSREQ_HOTE"),
-        port=os.getenv("OUTILSREQ_PORT"),
-        dbname="req",
-        user=os.getenv("OUTILSREQ_UTILISATEUR_POSTGRES"),
-        password=os.getenv("OUTILSREQ_MOT_PASSE_POSTGRES")
+        host=configuration.bd.hote,
+        port=configuration.bd.port,
+        dbname=configuration.bd.nom_bd_req,
+        user=configuration.bd.utilisateurs.postgres.nom,
+        password=configuration.bd.utilisateurs.postgres.mot_passe
     ) as conn:
         with conn.cursor() as cur:
             cur.execute(script)
