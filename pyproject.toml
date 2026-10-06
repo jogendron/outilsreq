@@ -1,7 +1,7 @@
 [project]
 name = "outilsreq"
 version = "0.1.0"
-description = "Add your description here"
+description = "Outils de chargement des données du REQ"
 readme = "README.md"
 authors = [
     { name = "Jonathan Gendron", email = "65961361+jogendron@users.noreply.github.com" }
