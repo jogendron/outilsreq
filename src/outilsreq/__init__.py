@@ -2,8 +2,8 @@
 Outils de chargement des données ouvertes du REQ
 """
 import argparse
-from .initialiser_bd import initialiser_bd
-from .charger_donnees import charger_donnees
+from .initialisation_bd import initialiser_bd
+from .chargement_donnees import charger_donnees
 
 def main() -> None:
     """Outils de chargement des données ouvertes du REQ."""
