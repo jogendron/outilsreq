@@ -35,7 +35,7 @@ uv sync
 ```
 
 ## Mise en place de la base de données
-### 1. Configuration avec Docker
+### 1. Configuration avec Docker (pour développement local)
 À la racine du projet, lancez la commande suivante :
 
 ```bash
