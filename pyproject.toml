@@ -1,13 +1,13 @@
 [project]
 name = "outilsreq"
 version = "0.1.0"
-description = "Add your description here"
+description = "Outils de chargement des données du REQ"
 readme = "README.md"
 authors = [
     { name = "Jonathan Gendron", email = "65961361+jogendron@users.noreply.github.com" }
 ]
 requires-python = ">=3.14"
-dependencies = [ "python-dotenv", "psycopg[binary]" ]
+dependencies = [ "python-dotenv", "pandas", "psycopg[binary]" ]
 
 [project.scripts]
 outilsreq = "outilsreq:main"
