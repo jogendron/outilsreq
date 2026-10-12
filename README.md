@@ -4,7 +4,7 @@ Ce projet regroupe des outils ayant pour but d'interagir avec les données du Re
 Pour le moment, la seule fonctionnalité consiste à charger les données ouvertes dans une base de données SQL.
 
 ## Prérequis
-* Docker (ou votre propre installation de PostgreSQL)
+* docker (ou votre propre installation de PostgreSQL)
 * uv
 
 ## Configuration des variables d'environnement
@@ -35,7 +35,7 @@ uv sync
 ```
 
 ## Mise en place de la base de données
-### 1. Configuration avec Docker (pour développement local)
+### 1.a) Configuration avec Docker (pour développement local)
 À la racine du projet, lancez la commande suivante :
 
 ```bash
@@ -44,15 +44,10 @@ docker compose -f docker/outilsreq/compose.yaml up -d
 
 Le mot de passe défini pour le compte `postgres` dans `docker/outilsreq/compose.yaml` doit correspondre à la valeur de `OUTILSREQ_BD_UTILISATEURS_POSTGRES_MOTPASSE` dans le fichier `.env`.
 
-### 2. Configuration manuelle
-La procédure détaillée ne sera pas couverte ici, mais vous pouvez installer PostgreSQL à l'emplacement de votre choix. Assurez-vous que les variables d'environnement suivantes reflètent votre configuration :
-* OUTILSREQ_BD_HOTE
-* OUTILSREQ_BD_PORT
-* OUTILSREQ_BD_NOMBDPOSTGRES
-* OUTILSREQ_BD_UTILISATEURS_POSTGRES_NOM
-* OUTILSREQ_BD_UTILISATEURS_POSTGRES_MOTPASSE
+### 1.b) Configuration manuelle
+La procédure détaillée ne sera pas couverte ici, mais vous pouvez installer PostgreSQL à l'emplacement de votre choix. Assurez-vous que les variables d'environnement reflètent votre configuration.
 
-### 3. Création du schéma et des tables
+### 2) Création du schéma et des tables
 Vérifiez que vos variables d'environnement sont correctes, puis lancez la commande suivante à la racine du projet :
 
 ```bash
