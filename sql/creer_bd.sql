@@ -75,6 +75,7 @@ create table donnees_ouvertes.etablissement(
 	cod_act_econ2			varchar(25),
 	desc_act_econ_etab2		varchar(500),
 	no_act_econ_etab2		integer,
+	nom_etab				varchar(500),
 	primary key (neq, no_suf_etab)
 );
 
@@ -101,11 +102,3 @@ create table donnees_ouvertes.continuation_transformation(
 	dat_efctvt				date,
 	primary key (neq, cod_typ_chang, dat_efctvt)
 );
-
-GRANT CONNECT ON DATABASE req TO req_adm;
-GRANT CONNECT ON DATABASE req TO req_usr;
-
-GRANT USAGE ON SCHEMA donnees_ouvertes TO req_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA donnees_ouvertes TO req_usr;
-
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA donnees_ouvertes TO req_adm;
